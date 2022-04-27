@@ -1,0 +1,224 @@
+#include <iostream>
+#include <stdlib.h>
+#include <conio.h>
+#include <string.h>
+#define MAX 8
+using namespace std;
+
+void push(void);
+void Enqueue (int data);
+void tampil(void);
+int x, top;
+int s[10], N=10;
+
+typedef struct {
+	int data[MAX];
+	int head;
+	int tail;
+} Queue;
+
+Queue antrian;
+
+void Enqueue (int data);
+int Dequeue ();
+void Tampil ();
+void pop(void);
+void clear ();
+
+int main(){
+	antrian.head=antrian.tail=-1;
+
+	int pilih;
+	menu:
+		{
+			
+			system("cls");
+			cout<<"\r Pilihan "<<endl;
+			cout<<"\r ============"<<endl;
+			cout<<"\r | 1. Stack "<<endl;
+			cout<<"\r | 2. Enqueue    "<<endl;
+			cout<<"\r ============ "<<endl;
+			cout<<"\r Pilih :  ";cin>>pilih;
+
+}	if(pilih==1)
+	{
+			system("cls");
+			cout<<"\r Coba Stack"<<endl;
+			cout<<"\r================"<<endl;
+			cout<<"\r | 1. Push		 |"<<endl;
+			cout<<"\r | 2. Pop		 |"<<endl;
+			cout<<"\r | 3. Tampil 	 |"<<endl;
+			cout<<"\r | 4. Exit 	 |"<<endl;
+			cout<<"\r================"<<endl;
+			cout<<"\r Pilih : ";cin>>pilih;
+switch(pilih)
+{
+	case 1:
+		cout<<"Masukkan data x = ";cin>>x;
+		push ();
+		getch ();
+		break;
+		
+	case 2:
+		pop();
+		getch();
+		break;
+		
+	case 3:
+		tampil();
+		getch();
+		break;
+		
+			
+		}
+			
+			goto menu;		
+		}
+		else
+		{
+
+			system("cls");
+			cout<<"\r    Coba Queue (Antrian)"<<endl;
+			cout<<"\r ========================"<<endl;
+			cout<<"\r | 1. Enqueue (Tambah)   "<<endl;
+			cout<<"\r | 2. Dequeue (Hapus)    "<<endl;
+			cout<<"\r | 3. Tampil             "<<endl;
+			cout<<"\r | 4. Exit               "<<endl;
+			cout<<"\r ========================"<<endl;
+			cout<<endl<<endl;
+			cout<<"\r Pilih : ";cin>>pilih;
+			
+			switch(pilih)
+			{
+				case 1:
+					int bil; 
+					cout<<" Input Data : ";cin>>bil;
+					Enqueue(bil);
+					getch ();
+					break;
+					
+					case 2:
+						Dequeue ();
+						getch();
+						break;
+						
+					case 3:
+						Tampil();
+						getch();
+						break;
+						
+					case 4:
+						exit (0);	
+				}
+				goto menu;	
+			}			
+			
+}
+
+void push(void)
+{
+	if (top < N)
+	{
+		cout<<"\n\r Data X = "<<x<<" Top = "<<top+1;
+		top = top + 1;
+		s[top]=x;
+		cout<<"\n Berhasil ditambah";
+	}
+	else
+	{
+		cout<<"\n\r Stack Penuh";
+	}
+}
+
+void pop(void)
+{
+	if (top > 0 )
+	{
+		x = s[top];
+		cout<<"Data X = "<<x<<" Top = "<<top;
+		top = top - 1;
+		cout<<"\n Berhasil dihapus";
+	}                     
+	else
+	{
+		
+		
+		
+		cout<<"\n\r Stack Kosong";
+	}
+}
+
+void tampil()
+{
+	if(top > 0){
+		for (int i=top; i>0; i--){
+			cout<<" Data X : "<<s[i];
+			cout<<endl;
+		}
+	}
+	else
+	{
+		cout<<" Data Masih Kosong "<<endl;
+	}
+}
+
+int IsEmpty (){
+	if(antrian.tail==-1)
+	return 1;
+	else 
+	return 0;
+}
+int IsFull(){
+	if(antrian.tail==MAX-1)
+	return 1;
+	else
+	return 0;
+	
+}
+
+void Enqueue (int data){
+	if(IsEmpty()==1){
+		antrian.head=antrian.tail=0;
+		antrian.data[antrian.tail]=data;
+		cout<<" Data : "<<antrian.data[antrian.tail];
+		cout<<" Masuk antrian ke "<<antrian.tail+1;
+	}
+	else if(IsFull()==0){
+		antrian.tail++;
+		antrian.data[antrian.tail]=data;
+		cout<<" Data : "<<antrian.data[antrian.tail];
+		cout<<" Masuk antrian ke "<<antrian.tail+1;
+		
+	}
+	else if(IsEmpty()==0 || IsFull()==1){
+		cout<<" Antrian Penuh !"<<endl;
+}
+		
+}
+
+int Dequeue (){
+	if(IsEmpty()==1){
+		cout<<" Data Sudah Kosong";
+	}
+	else if(IsEmpty()==0){
+		int i;
+		int e = antrian.data[antrian.head];
+		for (i=antrian.head; i<=antrian.tail-1; i++){
+			antrian.data[i]=antrian.data[i+1];
+	}
+	cout<<" Data : "<<e<<endl;
+	antrian.tail--;
+	cout<<" Berhasil di Hapus ! ";
+	return e;
+	}
+}
+
+void Tampil(){
+	if(IsEmpty()==0){
+		for(int i=antrian.head; i<=antrian.tail; i++){
+			cout<<" Antrian "<<i+1;
+			cout<<" Data : "<<antrian.data[i]<<endl;
+		}
+	}else
+cout<<" Tidak Ada Data"<<endl;
+}
